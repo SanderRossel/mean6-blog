@@ -1,0 +1,122 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>AngularJS example</title>
+        <script src="node_modules/angular/angular.min.js"></script>
+        <script src="front-end.js"></script>
+        <style>
+            .example {
+                border-style: solid;
+                padding: 0 0 10px 10px;
+            }
+            
+            .colored {
+                color: red;
+            }
+            
+            .underlined {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body ng-app="exampleApp">
+        <div ng-controller="exampleController">
+        
+            <!-- Controller binding example -->
+            <div class="example">
+                <h2>Controller binding example</h2>
+                <p>Enter you name:
+                    <input type="text" ng-model="firstName" />
+                    <input type="text" ng-model="lastName" />
+                </p>
+                <p>You have entered: {{ fullName() }}</p>
+            </div>
+            
+            <!-- List example -->
+            <div class="example">
+                <h2>List example</h2>
+                <ul>
+                    <li ng-repeat="movie in favoriteMovies">
+                        {{ movie }}
+                    </li>
+                </ul>
+                <input type="text" ng-model="favoriteMovies" ng-list />
+                <input type="text" ng-model="favoriteMovies" ng-list=" | " />
+            </div>
+            
+            <!-- Object list example -->
+            <div class="example">
+                <h2>Object list example</h2>
+                <ul>
+                    <li ng-repeat="album in favoriteAlbums">
+                        {{ album.artist + ' - ' + album.title }}
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Edit object list example -->
+            <div class="example">
+                <h2>Edit object list example</h2>
+                <div ng-repeat="album in favoriteAlbums">
+                    <input type="text" ng-model="album.artist" />
+                    <input type="text" ng-model="album.title" />
+                </div>
+                <button ng-click="addAlbum()">New album</button>
+            </div>
+            
+            <!-- Class example -->
+            <div class="example">
+                <h2>Class example</h2>
+                Color: <input type="checkbox" ng-model="addColor" />
+                Underline: <input type="checkbox" ng-model="addUnderline" />
+                <p ng-class="{ colored: addColor, underlined: addUnderline }">This text might be colored and/or underlined!</p>
+                <p ng-class="getClasses()">This text might be colored and/or underlined!</p>
+            </div>
+            
+            <!-- Filter example -->
+            <div class="example">
+                <h2>Filter example</h2>
+                <p>You have entered: {{ fullName() | uppercase }}</p>
+                <p>You have entered: {{ fullName() | lowercase }}</p>
+                <p>
+                    <input type="text" ng-model="number"><br>
+                    Number (default): {{ number | number }}<br>
+                    Number (no fractions): {{ number | number: 0 }}<br>
+                    Number (three fractions): {{ number | number: 2 }}
+                </p>
+                <p>
+                    Date (default): {{ date | date }}<br>
+                    Date (dd-MM-yyyy): {{ date | date: 'dd-MM-yyyy' }}<br>
+                    Date (yy/M/d): {{ date | date: 'yy/M/d' }}<br>
+                    Date (full): {{ date | date: 'fullDate' }}<br>
+                    Date (long): {{ date | date: 'longDate' }}
+                </p>
+                <h3>Ordered by title</h3>
+                <ul>
+                    <li ng-repeat="album in favoriteAlbums | orderBy: 'title'">
+                        {{ album.artist + ' - ' + album.title }}
+                    </li>
+                </ul>
+                <h3>Ordered by artist reverse</h3>
+                <ul>
+                    <li ng-repeat="album in favoriteAlbums | orderBy: 'artist' : true">
+                        {{ album.artist + ' - ' + album.title }}
+                    </li>
+                </ul>
+                <h3>Filtered on everything with '*y*'</h3>
+                <ul>
+                    <li ng-repeat="album in favoriteAlbums | filter: 'y'">
+                        {{ album.artist + ' - ' + album.title }}
+                    </li>
+                </ul>
+                <h3>Filtered on artist with '*y*'</h3>
+                <ul>
+                    <li ng-repeat="album in favoriteAlbums | filter: { artist: 'y' }">
+                        {{ album.artist + ' - ' + album.title }}
+                    </li>
+                </ul>
+            </div>
+            
+        </div>
+    </body>
+</html>
